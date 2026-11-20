@@ -11,7 +11,7 @@ package.json                    API가 쓰는 라이브러리(@netlify/blobs)
 [주소]
 https://사이트주소/              투표 페이지 (QR은 이 주소로)
 https://사이트주소/result        부스 모니터·태블릿용 실시간 현황판 (10초마다 갱신)
-https://사이트주소/api/export    전체 투표 결과 CSV 다운로드 (시각 · 품종 · 연령대, 엑셀로 열림)
+https://사이트주소/api/export    전체 투표 결과 CSV 다운로드 (시각 · 품종 · 연령대 · 성별, 엑셀로 열림)
 
 ※ 투표 저장은 Netlify Functions로 동작합니다.
   '드래그 앤 드롭(Netlify Drop)'으로 올리면 화면은 뜨지만 투표가 저장되지 않을 수 있으니

@@ -49,6 +49,8 @@ h1 .y{color:var(--hi)}
 .v[aria-checked="true"] .ck{display:flex}
 .ages{display:flex;flex-wrap:wrap;gap:8px}
 .age{height:38px;padding:0 15px;border-radius:99px;border:1.5px solid var(--line);background:#fff;color:var(--ink);font:inherit;font-size:14.5px;font-weight:600;cursor:pointer}
+.gen .age{flex:1;height:44px;font-size:15.5px}
+.sh small.req{color:#D6407A}
 .age[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
 .cta{position:sticky;bottom:0;padding:14px 0 calc(52px + env(safe-area-inset-bottom,0px));margin-top:18px;
   background:linear-gradient(180deg,rgba(236,226,248,0) 0%,var(--bg2) 34%)}
@@ -119,8 +121,12 @@ body.board .bars{gap:18px;margin-top:20px}
       <div class="grid" id="grid" role="radiogroup" aria-label="품종 선택"></div>
     </section>
     <section class="sec">
-      <p class="sh d"><span class="no">2</span>연령대 <small>(선택)</small></p>
+      <p class="sh d"><span class="no">2</span>연령대 <small class="req">(필수)</small></p>
       <div class="ages" id="ages"></div>
+    </section>
+    <section class="sec">
+      <p class="sh d"><span class="no">3</span>성별 <small class="req">(필수)</small></p>
+      <div class="ages gen" id="gens"></div>
     </section>
     <div class="cta">
       <button class="btn d" id="go" disabled>품종을 골라 주세요</button>
@@ -163,7 +169,10 @@ body.board .bars{gap:18px;margin-top:20px}
 var V = [{"id": "glory", "n": "글로리스타", "img": "assets/grape_glory.webp"}, {"id": "shine", "n": "샤인머스캣", "img": "assets/grape_shine.webp"}, {"id": "claret", "n": "레드클라렛", "img": "assets/grape_claret.webp"}, {"id": "coco", "n": "코코볼", "img": "assets/grape_coco.webp"}, {"id": "hongju", "n": "홍주씨들리스", "img": "assets/grape_hongju.webp"}, {"id": "sunny", "n": "써니돌체", "img": "assets/grape_sunny.webp"}];
 var AGES = [['a10','10대 이하'],['a20','20대'],['a30','30대'],['a40','40대'],['a50','50대'],['a60','60대 이상']];
 var KEY = 'kgrape2026_vote_id', IDK = 'kgrape2026_id';
-var sel = null, age = '';
+var sel = null, age = '', gender = '';
+var GENS = [['m','남성'],['f','여성']];
+function updGo(){ var go = $('go'); if(!go) return; go.disabled = !(sel && age && gender);
+  go.textContent = !sel ? '품종을 골라 주세요' : !age ? '연령대를 골라 주세요' : !gender ? '성별을 골라 주세요' : nameOf(sel) + ' 에 투표하기'; }
 function $(id){ return document.getElementById(id); }
 function ls(k, v){ try{ if(v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); }catch(e){ return null; } }
 function devId(){ var d = ls(IDK); if(!d){ d = Date.now().toString(36) + Math.random().toString(36).slice(2, 12); ls(IDK, d); } return d || ''; }
@@ -173,7 +182,7 @@ function toast(t){ var e = $('toast'); e.textContent = t; e.classList.add('on');
 var API = location.protocol !== 'file:' ? {
   call: function(fn, args){
     var req = fn === 'vote'
-      ? fetch('/api/vote', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ variety: args[0], age: args[1] || 'na', device: args[2] }) })
+      ? fetch('/api/vote', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ variety: args[0], age: args[1] || 'na', device: args[2], gender: args[3] || 'na' }) })
       : fetch('/api/results', { cache: 'no-store' });
     return req.then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); });
   }
@@ -199,7 +208,7 @@ function render(){
     b.onclick = function(){
       sel = v.id;
       Array.prototype.forEach.call(g.children, function(x){ x.setAttribute('aria-checked', String(x === b)); });
-      var go = $('go'); go.disabled = false; go.textContent = v.n + ' 에 투표하기';
+      var go = $('go'); go.disabled = false; go.textContent = v.n + ' 에 투표하기'; updGo();
     };
     g.appendChild(b);
   });
@@ -209,9 +218,18 @@ function render(){
     b.onclick = function(){
       var on = b.getAttribute('aria-pressed') !== 'true';
       Array.prototype.forEach.call(a.children, function(x){ x.setAttribute('aria-pressed', 'false'); });
-      b.setAttribute('aria-pressed', String(on)); age = on ? t[0] : '';
+      b.setAttribute('aria-pressed', String(on)); age = on ? t[0] : ''; updGo();
     };
     a.appendChild(b);
+  });
+  var gz = $('gens');
+  GENS.forEach(function(t){
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'age'; b.textContent = t[1]; b.setAttribute('aria-pressed', 'false');
+    b.onclick = function(){
+      Array.prototype.forEach.call(gz.children, function(x){ x.setAttribute('aria-pressed', 'false'); });
+      b.setAttribute('aria-pressed', 'true'); gender = t[0]; updGo();
+    };
+    gz.appendChild(b);
   });
 }
 
@@ -242,12 +260,12 @@ function showDone(mine, res){
 $('go').onclick = function(){
   if(!sel) return;
   var go = $('go'); go.disabled = true; go.innerHTML = '<span class="spin"></span>';
-  API.call('vote', [sel, age, devId()]).then(function(r){
+  API.call('vote', [sel, age, devId(), gender]).then(function(r){
     ls(KEY, sel);
     if(r && r.already) toast('이미 참여하셨어요. 현재 결과를 보여 드릴게요.');
     showDone(sel, r && r.result);
   }).catch(function(){
-    go.disabled = false; go.textContent = nameOf(sel) + ' 에 투표하기';
+    updGo();
     toast('잠시 후 다시 시도해 주세요.');
   });
 };
