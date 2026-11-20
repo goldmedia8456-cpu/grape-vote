@@ -7,7 +7,7 @@
 <meta name="description" content="2026년 과일산업대전 한국포도협회 부스 · 가장 맛있었던 포도 품종에 투표해 주세요.">
 <meta property="og:title" content="어떤 포도가 가장 맛있었나요? | 한국포도협회">
 <meta property="og:description" content="2026년 과일산업대전 한국포도협회 부스 · 품종별 선호도 투표">
-<meta property="og:image" content="assets/og.png">
+<meta property="og:image" content="https://kgrape-vote.netlify.app/assets/og.png">
 <meta name="theme-color" content="#F6F1FC">
 <link rel="icon" href="assets/icon-180.png"><link rel="apple-touch-icon" href="assets/icon-180.png">
 <link rel="preload" href="assets/ssurround-sub.woff2" as="font" type="font/woff2" crossorigin>
@@ -22,8 +22,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sa
 .wrap{max-width:520px;margin:0 auto;padding:0 16px 0}
 header{position:relative;text-align:center;padding:22px 0 6px}
 .logo{height:34px;display:block;margin:0 auto}
-.chars{position:absolute;top:58px;width:78px}
-.chars.l{left:-4px}.chars.r{right:-4px;width:70px}
+.chars{position:absolute;top:56px;height:92px;width:auto}
+.chars.l{left:-2px}.chars.r{right:-2px}
+@media (max-width:360px){.chars{height:76px}}
 .pill{display:inline-flex;align-items:center;justify-content:center;border-radius:99px;padding:0 13px;height:28px;font-size:13px;line-height:1}
 .evt{background:var(--g3);color:#fff;margin-top:16px}
 h1{font-size:31px;line-height:1.22;margin-top:12px}
@@ -38,7 +39,7 @@ h1 .y{color:var(--hi)}
 .v{position:relative;background:var(--card);border:2.5px solid transparent;border-radius:20px;overflow:hidden;cursor:pointer;
   box-shadow:0 4px 12px rgba(90,40,140,.10);transition:transform .12s,border-color .12s,box-shadow .12s;text-align:center;font:inherit;color:inherit;padding:0}
 .v:active{transform:scale(.97)}
-.v .ph{height:128px;display:flex;align-items:flex-end;justify-content:center;padding:10px 6px 4px;background:#fff}
+.v .ph{height:132px;display:flex;align-items:center;justify-content:center;padding:8px 6px;background:#fff}
 .v .ph img{max-height:114px;max-width:100%}
 .v .nm{display:flex;align-items:center;justify-content:center;height:40px;color:#fff;font-size:16px}
 .v.g .nm{background:var(--g3)}.v.p .nm{background:var(--pu)}
@@ -49,7 +50,7 @@ h1 .y{color:var(--hi)}
 .ages{display:flex;flex-wrap:wrap;gap:8px}
 .age{height:38px;padding:0 15px;border-radius:99px;border:1.5px solid var(--line);background:#fff;color:var(--ink);font:inherit;font-size:14.5px;font-weight:600;cursor:pointer}
 .age[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
-.cta{position:sticky;bottom:0;padding:14px 0 calc(14px + env(safe-area-inset-bottom,0px));margin-top:18px;
+.cta{position:sticky;bottom:0;padding:14px 0 calc(52px + env(safe-area-inset-bottom,0px));margin-top:18px;
   background:linear-gradient(180deg,rgba(236,226,248,0) 0%,var(--bg2) 34%)}
 .btn{display:flex;align-items:center;justify-content:center;width:100%;height:58px;border:0;border-radius:99px;background:var(--g3);color:#fff;font-size:20px;cursor:pointer;
   box-shadow:0 6px 16px rgba(62,123,44,.28)}
@@ -57,16 +58,14 @@ h1 .y{color:var(--hi)}
 .note{text-align:center;font-size:12.5px;color:#9A88AE;margin-top:9px}
 /* 결과 */
 .done{text-align:center;padding-top:6px}
-.done .pick{display:inline-flex;align-items:center;gap:8px;background:#fff;border-radius:99px;padding:6px 16px 6px 6px;margin-top:14px;box-shadow:0 4px 12px rgba(90,40,140,.10)}
-.done .pick img{width:38px;height:38px;object-fit:contain;background:#F6F1FC;border-radius:50%}
-.done .pick b{font-size:16px}
+.done .pick{display:inline-flex;align-items:center;gap:8px;background:#fff;border-radius:99px;padding:10px 20px;margin-top:14px;box-shadow:0 4px 12px rgba(90,40,140,.10)}
+.done .pick b{font-size:18px}
 .card{background:#fff;border-radius:22px;padding:18px 16px;box-shadow:0 4px 14px rgba(90,40,140,.10);margin-top:16px}
 .card h2{font-size:18px;display:flex;align-items:baseline;justify-content:space-between;gap:8px}
 .card h2 small{font-family:inherit;font-size:12.5px;color:#9A88AE;font-weight:500}
 .bars{margin-top:12px;display:flex;flex-direction:column;gap:10px}
-.bar{display:grid;grid-template-columns:34px 82px minmax(0,1fr) 54px;align-items:center;gap:8px}
-.bar img{width:34px;height:34px;object-fit:contain}
-.bar .bn{font-size:14px;font-weight:700;white-space:nowrap}
+.bar{display:grid;grid-template-columns:96px minmax(0,1fr) 56px;align-items:center;gap:10px;min-height:30px}
+.bar .bn{font-size:15px;white-space:nowrap}
 .bar .tr{height:16px;border-radius:99px;background:#F1EAFA;overflow:hidden}
 .bar .fl{height:100%;border-radius:99px;width:0;transition:width .7s cubic-bezier(.2,.8,.2,1)}
 .bar .pc{text-align:right;font-size:14px;font-weight:700;color:var(--sub);font-variant-numeric:tabular-nums}
@@ -81,7 +80,7 @@ h1 .y{color:var(--hi)}
 .sub2{font-size:13.5px;color:var(--sub);margin-top:6px;line-height:1.5}
 footer{margin-top:28px}
 .strip{display:block;width:100%;height:38px}
-.foot{background:var(--g3);color:#fff;text-align:center;padding:4px 16px calc(16px + env(safe-area-inset-bottom,0px));font-size:12.5px;line-height:1.6;opacity:1}
+.foot{background:var(--g3);color:#fff;text-align:center;padding:4px 16px calc(64px + env(safe-area-inset-bottom,0px));font-size:12.5px;line-height:1.6;opacity:1}
 .foot b{font-family:"Ssurround",sans-serif;font-weight:normal;font-size:14px}
 .toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);background:var(--ink);color:#fff;font-size:14px;padding:11px 18px;border-radius:99px;opacity:0;pointer-events:none;transition:opacity .2s;white-space:nowrap}
 .toast.on{opacity:1}
@@ -92,9 +91,8 @@ footer{margin-top:28px}
 body.board .wrap{max-width:1100px}
 body.board h1{font-size:46px}
 body.board .card{padding:28px 30px}
-body.board .bar{grid-template-columns:64px 170px minmax(0,1fr) 120px;gap:16px}
-body.board .bar img{width:64px;height:64px}
-body.board .bar .bn{font-size:24px}
+body.board .bar{grid-template-columns:200px minmax(0,1fr) 120px;gap:20px;min-height:48px}
+body.board .bar .bn{font-size:28px}
 body.board .bar .tr{height:34px}
 body.board .bar .pc{font-size:24px}
 body.board .card h2{font-size:28px}
@@ -222,7 +220,7 @@ function bars(res, mine){
   V.forEach(function(v, i){
     var n = res.counts[v.id] || 0, p = t ? Math.round(n * 1000 / t) / 10 : 0;
     var d = document.createElement('div'); d.className = 'bar' + (v.id === mine ? ' me' : '');
-    d.innerHTML = '<img alt="" src="' + v.img + '"><span class="bn d">' + v.n + '</span><div class="tr"><div class="fl" style="background:' + (i % 2 ? '#6A2C9E' : '#3E7B2C') + '"></div></div><span class="pc">' + p + '%</span>';
+    d.innerHTML = '<span class="bn d">' + v.n + '</span><div class="tr"><div class="fl" style="background:' + (i % 2 ? '#6A2C9E' : '#3E7B2C') + '"></div></div><span class="pc">' + p + '%</span>';
     box.appendChild(d);
     requestAnimationFrame(function(){ requestAnimationFrame(function(){ d.querySelector('.fl').style.width = Math.max(p, n ? 2 : 0) + '%'; }); });
   });
@@ -233,7 +231,7 @@ function showDone(mine, res){
   $('ttl').innerHTML = '투표해 주셔서<br><span class="y">감사합니다!</span>';
   $('lead').textContent = '지금까지 모인 품종별 선호도를 확인해 보세요.';
   var v = V.filter(function(x){ return x.id === mine; })[0];
-  $('pick').innerHTML = v ? '<img alt="" src="' + v.img + '"><b class="d">내 선택 · ' + v.n + '</b>' : '';
+  $('pick').innerHTML = v ? '<span class="d" style="color:#9A88AE">내 선택</span><b class="d">' + v.n + '</b>' : '';
   $('pick').hidden = !v;
   if(res) bars(res, mine); else API.call('getCounts').then(function(r){ bars(r, mine); }).catch(function(){});
   window.scrollTo(0, 0);
