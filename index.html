@@ -133,7 +133,7 @@ body.board .bars{gap:18px;margin-top:20px}
       <div class="pick" id="pick"></div>
     </div>
     <div class="card">
-      <h2 class="d">실시간 투표 현황 <small id="tot"></small></h2>
+      <h2 class="d">실시간 투표 현황</h2>
       <div class="bars" id="bars"></div>
     </div>
     <div class="card" id="snsCard">
@@ -216,7 +216,7 @@ function render(){
 function bars(res, mine){
   var box = $('bars'); box.innerHTML = '';
   var t = res.total || 0;
-  $('tot').textContent = '총 ' + t.toLocaleString() + '명 참여';
+  
   V.forEach(function(v, i){
     var n = res.counts[v.id] || 0, p = t ? Math.round(n * 1000 / t) / 10 : 0;
     var d = document.createElement('div'); d.className = 'bar' + (v.id === mine ? ' me' : '');
