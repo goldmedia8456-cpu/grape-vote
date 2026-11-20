@@ -1,0 +1,10 @@
+{
+  "name": "kgrape-vote-2026",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "한국포도협회 2026년 과일산업대전 품종별 선호도 투표",
+  "dependencies": {
+    "@netlify/blobs": "^8.2.0"
+  }
+}

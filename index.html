@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>어떤 포도가 가장 맛있었나요? | 한국포도협회</title>
+<meta name="description" content="2026년 과일산업대전 한국포도협회 부스 · 가장 맛있었던 포도 품종에 투표해 주세요.">
+<meta property="og:title" content="어떤 포도가 가장 맛있었나요? | 한국포도협회">
+<meta property="og:description" content="2026년 과일산업대전 한국포도협회 부스 · 품종별 선호도 투표">
+<meta property="og:image" content="assets/og.png">
+<meta name="theme-color" content="#F6F1FC">
+<link rel="icon" href="assets/icon-180.png"><link rel="apple-touch-icon" href="assets/icon-180.png">
+<link rel="preload" href="assets/ssurround-sub.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:"Ssurround";src:url(assets/ssurround-sub.woff2) format("woff2");font-display:swap}
+:root{--bg1:#F6F1FC;--bg2:#ECE2F8;--ink:#4A1A6B;--sub:#6E5A84;--pu:#6A2C9E;--hi:#7B3FC4;--g3:#3E7B2C;--g3l:#8CC63F;--y:#FFC52E;--line:#E2D5F3;--card:#fff}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{background:var(--bg1)}
+body{font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;color:var(--ink);
+  background:linear-gradient(180deg,var(--bg1) 0%,var(--bg2) 100%);min-height:100vh;word-break:keep-all}
+.d{font-family:"Ssurround","Apple SD Gothic Neo",sans-serif;font-weight:normal;letter-spacing:-.01em}
+.wrap{max-width:520px;margin:0 auto;padding:0 16px 0}
+header{position:relative;text-align:center;padding:22px 0 6px}
+.logo{height:34px;display:block;margin:0 auto}
+.chars{position:absolute;top:58px;width:78px}
+.chars.l{left:-4px}.chars.r{right:-4px;width:70px}
+.pill{display:inline-flex;align-items:center;justify-content:center;border-radius:99px;padding:0 13px;height:28px;font-size:13px;line-height:1}
+.evt{background:var(--g3);color:#fff;margin-top:16px}
+h1{font-size:31px;line-height:1.22;margin-top:12px}
+h1 .y{color:var(--hi)}
+.lead{font-size:14.5px;color:var(--sub);margin-top:10px;line-height:1.55}
+.sec{margin-top:22px}
+.sh{display:flex;align-items:center;gap:8px;font-size:17px;margin-bottom:11px}
+.sh .no{width:24px;height:24px;border-radius:50%;background:var(--pu);color:#fff;font-size:13px;display:flex;align-items:center;justify-content:center}
+.sh small{font-family:inherit;font-size:12.5px;color:#9A88AE;font-weight:500}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (min-width:430px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.v{position:relative;background:var(--card);border:2.5px solid transparent;border-radius:20px;overflow:hidden;cursor:pointer;
+  box-shadow:0 4px 12px rgba(90,40,140,.10);transition:transform .12s,border-color .12s,box-shadow .12s;text-align:center;font:inherit;color:inherit;padding:0}
+.v:active{transform:scale(.97)}
+.v .ph{height:128px;display:flex;align-items:flex-end;justify-content:center;padding:10px 6px 4px;background:#fff}
+.v .ph img{max-height:114px;max-width:100%}
+.v .nm{display:flex;align-items:center;justify-content:center;height:40px;color:#fff;font-size:16px}
+.v.g .nm{background:var(--g3)}.v.p .nm{background:var(--pu)}
+.v .ck{position:absolute;top:8px;right:8px;width:28px;height:28px;border-radius:50%;background:var(--y);display:none;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.v .ck svg{width:16px;height:16px}
+.v[aria-checked="true"]{border-color:var(--y);box-shadow:0 0 0 4px rgba(255,197,46,.35),0 6px 16px rgba(90,40,140,.16)}
+.v[aria-checked="true"] .ck{display:flex}
+.ages{display:flex;flex-wrap:wrap;gap:8px}
+.age{height:38px;padding:0 15px;border-radius:99px;border:1.5px solid var(--line);background:#fff;color:var(--ink);font:inherit;font-size:14.5px;font-weight:600;cursor:pointer}
+.age[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.cta{position:sticky;bottom:0;padding:14px 0 calc(14px + env(safe-area-inset-bottom,0px));margin-top:18px;
+  background:linear-gradient(180deg,rgba(236,226,248,0) 0%,var(--bg2) 34%)}
+.btn{display:flex;align-items:center;justify-content:center;width:100%;height:58px;border:0;border-radius:99px;background:var(--g3);color:#fff;font-size:20px;cursor:pointer;
+  box-shadow:0 6px 16px rgba(62,123,44,.28)}
+.btn:disabled{background:#C8BBD8;box-shadow:none;cursor:default}
+.note{text-align:center;font-size:12.5px;color:#9A88AE;margin-top:9px}
+/* 결과 */
+.done{text-align:center;padding-top:6px}
+.done .pick{display:inline-flex;align-items:center;gap:8px;background:#fff;border-radius:99px;padding:6px 16px 6px 6px;margin-top:14px;box-shadow:0 4px 12px rgba(90,40,140,.10)}
+.done .pick img{width:38px;height:38px;object-fit:contain;background:#F6F1FC;border-radius:50%}
+.done .pick b{font-size:16px}
+.card{background:#fff;border-radius:22px;padding:18px 16px;box-shadow:0 4px 14px rgba(90,40,140,.10);margin-top:16px}
+.card h2{font-size:18px;display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.card h2 small{font-family:inherit;font-size:12.5px;color:#9A88AE;font-weight:500}
+.bars{margin-top:12px;display:flex;flex-direction:column;gap:10px}
+.bar{display:grid;grid-template-columns:34px 82px minmax(0,1fr) 54px;align-items:center;gap:8px}
+.bar img{width:34px;height:34px;object-fit:contain}
+.bar .bn{font-size:14px;font-weight:700;white-space:nowrap}
+.bar .tr{height:16px;border-radius:99px;background:#F1EAFA;overflow:hidden}
+.bar .fl{height:100%;border-radius:99px;width:0;transition:width .7s cubic-bezier(.2,.8,.2,1)}
+.bar .pc{text-align:right;font-size:14px;font-weight:700;color:var(--sub);font-variant-numeric:tabular-nums}
+.bar.me .bn{color:var(--hi)}
+.sns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.sns a{display:flex;align-items:center;justify-content:center;gap:7px;height:50px;border-radius:16px;color:#fff;text-decoration:none;font-size:16px}
+.sns .yt{background:#E62117}.sns .ig{background:linear-gradient(90deg,#8E3AC6,#D9337C)}
+.ev{display:flex;align-items:center;gap:7px;background:var(--pu);color:#fff;border-radius:99px;min-height:44px;padding:0 10px 0 7px;margin-top:9px;font-size:14.5px;white-space:nowrap}
+.ev.g{background:var(--g3)}
+.ev .pill{background:var(--y);color:var(--ink);height:25px;font-size:11px;padding:0 8px;white-space:nowrap;flex:none}
+.ev span.t{margin-left:auto;font-family:inherit;font-size:11px;flex:none;opacity:.9;border:1px solid rgba(255,255,255,.7);border-radius:99px;padding:3px 8px;white-space:nowrap}
+.sub2{font-size:13.5px;color:var(--sub);margin-top:6px;line-height:1.5}
+footer{margin-top:28px}
+.strip{display:block;width:100%;height:38px}
+.foot{background:var(--g3);color:#fff;text-align:center;padding:4px 16px calc(16px + env(safe-area-inset-bottom,0px));font-size:12.5px;line-height:1.6;opacity:1}
+.foot b{font-family:"Ssurround",sans-serif;font-weight:normal;font-size:14px}
+.toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);background:var(--ink);color:#fff;font-size:14px;padding:11px 18px;border-radius:99px;opacity:0;pointer-events:none;transition:opacity .2s;white-space:nowrap}
+.toast.on{opacity:1}
+[hidden]{display:none!important}
+.spin{width:22px;height:22px;border:3px solid rgba(255,255,255,.45);border-top-color:#fff;border-radius:50%;animation:sp 0.8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+/* 현황판 (?view=result) */
+body.board .wrap{max-width:1100px}
+body.board h1{font-size:46px}
+body.board .card{padding:28px 30px}
+body.board .bar{grid-template-columns:64px 170px minmax(0,1fr) 120px;gap:16px}
+body.board .bar img{width:64px;height:64px}
+body.board .bar .bn{font-size:24px}
+body.board .bar .tr{height:34px}
+body.board .bar .pc{font-size:24px}
+body.board .card h2{font-size:28px}
+body.board .card h2 small{font-size:18px}
+body.board .bars{gap:18px;margin-top:20px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img class="logo" src="assets/logo.webp" alt="사단법인 한국포도협회 · 포도의무자조금관리위원회">
+    <img class="chars l" src="assets/char_purple.webp" alt="">
+    <img class="chars r" src="assets/char_green.webp" alt="">
+    <span class="pill evt d">2026년 과일산업대전</span>
+    <h1 class="d" id="ttl">어떤 포도가<br>가장 <span class="y">맛있었나요?</span></h1>
+    <p class="lead" id="lead">부스에서 맛본 포도 중<br>가장 마음에 드는 품종 하나를 골라 주세요.</p>
+  </header>
+
+  <!-- 투표 화면 -->
+  <main id="voteView">
+    <section class="sec">
+      <p class="sh d"><span class="no">1</span>가장 맛있었던 포도</p>
+      <div class="grid" id="grid" role="radiogroup" aria-label="품종 선택"></div>
+    </section>
+    <section class="sec">
+      <p class="sh d"><span class="no">2</span>연령대 <small>(선택)</small></p>
+      <div class="ages" id="ages"></div>
+    </section>
+    <div class="cta">
+      <button class="btn d" id="go" disabled>품종을 골라 주세요</button>
+      <p class="note">1인 1회 참여 · 이름·연락처 등 개인정보는 받지 않아요</p>
+    </div>
+  </main>
+
+  <!-- 투표 완료 · 결과 -->
+  <main id="doneView" hidden>
+    <div class="done">
+      <div class="pick" id="pick"></div>
+    </div>
+    <div class="card">
+      <h2 class="d">실시간 투표 현황 <small id="tot"></small></h2>
+      <div class="bars" id="bars"></div>
+    </div>
+    <div class="card" id="snsCard">
+      <h2 class="d">한국포도협회 SNS도 함께해요</h2>
+      <p class="sub2">구독·팔로우하고 부스에서 보여 주시면 포도알 플링코에 참여할 수 있어요.</p>
+      <div class="sns">
+        <a class="yt d" href="https://www.youtube.com/channel/UCsIi1xZG6lJYaNu6ulqzDGA" target="_blank" rel="noopener">YouTube 구독</a>
+        <a class="ig d" href="https://www.instagram.com/korea_grapes" target="_blank" rel="noopener">Instagram 팔로우</a>
+      </div>
+    </div>
+    <div class="card" id="evCard">
+      <h2 class="d">부스 이벤트도 함께해요</h2>
+      <div class="ev d"><span class="pill">EVENT 1</span>포도인간을 찾아라!<span class="t">1시간에 1번씩 운영</span></div>
+      <div class="ev g d"><span class="pill">EVENT 2</span>포도알 플링코<span class="t">상시 운영</span></div>
+    </div>
+  </main>
+</div>
+<footer>
+  <svg class="strip" viewBox="0 0 400 38" preserveAspectRatio="none" aria-hidden="true"><circle cx="0.0" cy="14.4" r="12" fill="#8CC63F"/><circle cx="19.0" cy="14.4" r="12" fill="#8CC63F"/><circle cx="38.1" cy="14.4" r="12" fill="#8CC63F"/><circle cx="57.1" cy="14.4" r="12" fill="#8CC63F"/><circle cx="76.2" cy="14.4" r="12" fill="#8CC63F"/><circle cx="95.2" cy="14.4" r="12" fill="#8CC63F"/><circle cx="114.3" cy="14.4" r="12" fill="#8CC63F"/><circle cx="133.3" cy="14.4" r="12" fill="#8CC63F"/><circle cx="152.4" cy="14.4" r="12" fill="#8CC63F"/><circle cx="171.4" cy="14.4" r="12" fill="#8CC63F"/><circle cx="190.5" cy="14.4" r="12" fill="#8CC63F"/><circle cx="209.5" cy="14.4" r="12" fill="#8CC63F"/><circle cx="228.6" cy="14.4" r="12" fill="#8CC63F"/><circle cx="247.6" cy="14.4" r="12" fill="#8CC63F"/><circle cx="266.7" cy="14.4" r="12" fill="#8CC63F"/><circle cx="285.7" cy="14.4" r="12" fill="#8CC63F"/><circle cx="304.8" cy="14.4" r="12" fill="#8CC63F"/><circle cx="323.8" cy="14.4" r="12" fill="#8CC63F"/><circle cx="342.9" cy="14.4" r="12" fill="#8CC63F"/><circle cx="361.9" cy="14.4" r="12" fill="#8CC63F"/><circle cx="381.0" cy="14.4" r="12" fill="#8CC63F"/><circle cx="400.0" cy="14.4" r="12" fill="#8CC63F"/><circle cx="9.5" cy="21.0" r="12" fill="#3E7B2C"/><circle cx="28.6" cy="21.0" r="12" fill="#3E7B2C"/><circle cx="47.6" cy="21.0" r="12" fill="#3E7B2C"/><circle cx="66.7" cy="21.0" r="12" fill="#3E7B2C"/><circle cx="85.7" cy="21.0" r="12" fill="#3E7B2C"/><circle cx="104.8" cy="21.0" r="12" fill="#3E7B2C"/><circle cx="123.8" cy="21.0" r="12" fill="#3E7B2C"/><circle cx="142.9" cy="21.0" r="12" fill="#3E7B2C"/><circle cx="161.9" cy="21.0" r="12" fill="#3E7B2C"/><circle cx="181.0" cy="21.0" r="12" fill="#3E7B2C"/><circle cx="200.0" cy="21.0" r="12" fill="#3E7B2C"/><circle cx="219.0" cy="21.0" r="12" fill="#3E7B2C"/><circle cx="238.1" cy="21.0" r="12" fill="#3E7B2C"/><circle cx="257.1" cy="21.0" r="12" fill="#3E7B2C"/><circle cx="276.2" cy="21.0" r="12" fill="#3E7B2C"/><circle cx="295.2" cy="21.0" r="12" fill="#3E7B2C"/><circle cx="314.3" cy="21.0" r="12" fill="#3E7B2C"/><circle cx="333.3" cy="21.0" r="12" fill="#3E7B2C"/><circle cx="352.4" cy="21.0" r="12" fill="#3E7B2C"/><circle cx="371.4" cy="21.0" r="12" fill="#3E7B2C"/><circle cx="390.5" cy="21.0" r="12" fill="#3E7B2C"/><circle cx="409.5" cy="21.0" r="12" fill="#3E7B2C"/><rect x="0" y="21.0" width="400" height="40" fill="#3E7B2C"/></svg>
+  <div class="foot"><b>참여해 주셔서 감사합니다 ♥</b><br>사단법인 한국포도협회 · 포도의무자조금관리위원회</div>
+</footer>
+<div class="toast" id="toast"></div>
+
+<script>
+var V = [{"id": "glory", "n": "글로리스타", "img": "assets/grape_glory.webp"}, {"id": "shine", "n": "샤인머스캣", "img": "assets/grape_shine.webp"}, {"id": "claret", "n": "레드클라렛", "img": "assets/grape_claret.webp"}, {"id": "coco", "n": "코코볼", "img": "assets/grape_coco.webp"}, {"id": "hongju", "n": "홍주씨들리스", "img": "assets/grape_hongju.webp"}, {"id": "sunny", "n": "써니돌체", "img": "assets/grape_sunny.webp"}];
+var AGES = [['a10','10대 이하'],['a20','20대'],['a30','30대'],['a40','40대'],['a50','50대'],['a60','60대 이상']];
+var KEY = 'kgrape2026_vote_id', IDK = 'kgrape2026_id';
+var sel = null, age = '';
+function $(id){ return document.getElementById(id); }
+function ls(k, v){ try{ if(v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); }catch(e){ return null; } }
+function devId(){ var d = ls(IDK); if(!d){ d = Date.now().toString(36) + Math.random().toString(36).slice(2, 12); ls(IDK, d); } return d || ''; }
+function toast(t){ var e = $('toast'); e.textContent = t; e.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(function(){ e.classList.remove('on'); }, 2200); }
+
+/* 서버 호출 (Netlify Functions) — 파일을 바로 열었을 때(file://)만 가짜 데이터로 미리보기 */
+var API = location.protocol !== 'file:' ? {
+  call: function(fn, args){
+    var req = fn === 'vote'
+      ? fetch('/api/vote', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ variety: args[0], age: args[1] || 'na', device: args[2] }) })
+      : fetch('/api/results', { cache: 'no-store' });
+    return req.then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); });
+  }
+} : (function(){
+  var c = {}; V.forEach(function(v, i){ c[v.id] = [18, 31, 12, 9, 22, 15][i]; });
+  return { call: function(fn, args){ return new Promise(function(ok){ setTimeout(function(){
+    if(fn === 'vote'){ c[args[0]]++; }
+    var t = 0; for(var k in c) t += c[k];
+    var res = { counts: JSON.parse(JSON.stringify(c)), total: t, at: Date.now() };
+    ok(fn === 'vote' ? { ok: true, result: res } : res);
+  }, 350); }); } };
+})();
+
+function nameOf(id){ var v = V.filter(function(x){ return x.id === id; })[0]; return v ? v.n : ''; }
+function render(){
+  var g = $('grid');
+  g.innerHTML = '';
+  V.forEach(function(v, i){
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'v ' + (i % 2 ? 'p' : 'g'); b.setAttribute('role', 'radio'); b.setAttribute('aria-checked', 'false');
+    b.innerHTML = '<div class="ph"><img alt="" src="' + v.img + '"></div><div class="nm d">' + v.n + '</div>'
+      + '<span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#4A1A6B" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>';
+    b.onclick = function(){
+      sel = v.id;
+      Array.prototype.forEach.call(g.children, function(x){ x.setAttribute('aria-checked', String(x === b)); });
+      var go = $('go'); go.disabled = false; go.textContent = v.n + ' 에 투표하기';
+    };
+    g.appendChild(b);
+  });
+  var a = $('ages');
+  AGES.forEach(function(t){
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'age'; b.textContent = t[1]; b.setAttribute('aria-pressed', 'false');
+    b.onclick = function(){
+      var on = b.getAttribute('aria-pressed') !== 'true';
+      Array.prototype.forEach.call(a.children, function(x){ x.setAttribute('aria-pressed', 'false'); });
+      b.setAttribute('aria-pressed', String(on)); age = on ? t[0] : '';
+    };
+    a.appendChild(b);
+  });
+}
+
+function bars(res, mine){
+  var box = $('bars'); box.innerHTML = '';
+  var t = res.total || 0;
+  $('tot').textContent = '총 ' + t.toLocaleString() + '명 참여';
+  V.forEach(function(v, i){
+    var n = res.counts[v.id] || 0, p = t ? Math.round(n * 1000 / t) / 10 : 0;
+    var d = document.createElement('div'); d.className = 'bar' + (v.id === mine ? ' me' : '');
+    d.innerHTML = '<img alt="" src="' + v.img + '"><span class="bn d">' + v.n + '</span><div class="tr"><div class="fl" style="background:' + (i % 2 ? '#6A2C9E' : '#3E7B2C') + '"></div></div><span class="pc">' + p + '%</span>';
+    box.appendChild(d);
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ d.querySelector('.fl').style.width = Math.max(p, n ? 2 : 0) + '%'; }); });
+  });
+}
+
+function showDone(mine, res){
+  $('voteView').hidden = true; $('doneView').hidden = false;
+  $('ttl').innerHTML = '투표해 주셔서<br><span class="y">감사합니다!</span>';
+  $('lead').textContent = '지금까지 모인 품종별 선호도를 확인해 보세요.';
+  var v = V.filter(function(x){ return x.id === mine; })[0];
+  $('pick').innerHTML = v ? '<img alt="" src="' + v.img + '"><b class="d">내 선택 · ' + v.n + '</b>' : '';
+  $('pick').hidden = !v;
+  if(res) bars(res, mine); else API.call('getCounts').then(function(r){ bars(r, mine); }).catch(function(){});
+  window.scrollTo(0, 0);
+}
+
+$('go').onclick = function(){
+  if(!sel) return;
+  var go = $('go'); go.disabled = true; go.innerHTML = '<span class="spin"></span>';
+  API.call('vote', [sel, age, devId()]).then(function(r){
+    ls(KEY, sel);
+    if(r && r.already) toast('이미 참여하셨어요. 현재 결과를 보여 드릴게요.');
+    showDone(sel, r && r.result);
+  }).catch(function(){
+    go.disabled = false; go.textContent = nameOf(sel) + ' 에 투표하기';
+    toast('잠시 후 다시 시도해 주세요.');
+  });
+};
+
+/* 현황판: 주소 끝에 ?view=result */
+function board(){
+  document.body.classList.add('board');
+  $('voteView').hidden = true; $('doneView').hidden = false;
+  $('snsCard').hidden = true; $('evCard').hidden = true; $('pick').parentNode.hidden = true;
+  $('ttl').innerHTML = '품종별 선호도 <span class="y">실시간 현황</span>';
+  $('lead').textContent = '휴대폰으로 QR을 찍고 가장 맛있었던 포도에 투표해 주세요!';
+  function tick(){ API.call('getCounts').then(function(r){ bars(r, null); }).catch(function(){}); }
+  tick(); setInterval(tick, 10000);
+}
+
+render();
+function start(q){
+  if(q && q.view === 'result') return board();
+  var mine = ls(KEY);
+  if(mine) showDone(mine, null);
+}
+var p = {}; location.search.replace(/[?&]([^=&]+)=([^&]*)/g, function(_, k, v){ p[k] = decodeURIComponent(v); });
+if(/\/result\/?$/.test(location.pathname)) p.view = 'result';
+start(p);
+</script>
+</body>
+</html>

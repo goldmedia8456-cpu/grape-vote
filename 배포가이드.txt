@@ -1,0 +1,57 @@
+한국포도협회 품종별 선호도 투표 — Netlify 배포 가이드
+━━━━━━━━━━━━━━━━━━
+
+[폴더 구성]
+index.html                      랜딩 + 투표 페이지 (모바일 전용 레이아웃)
+assets/                         로고 · 캐릭터 · 품종 사진(webp) · 폰트 · 공유 이미지(og.png) · 아이콘
+netlify/functions/api.mjs       투표 저장 · 집계 API (Netlify Functions + Netlify Blobs)
+netlify.toml                    배포 설정 (/result 현황판 주소 포함)
+package.json                    API가 쓰는 라이브러리(@netlify/blobs)
+
+[주소]
+https://사이트주소/              투표 페이지 (QR은 이 주소로)
+https://사이트주소/result        부스 모니터·태블릿용 실시간 현황판 (10초마다 갱신)
+https://사이트주소/api/export    전체 투표 결과 CSV 다운로드 (시각 · 품종 · 연령대, 엑셀로 열림)
+
+※ 투표 저장은 Netlify Functions로 동작합니다.
+  '드래그 앤 드롭(Netlify Drop)'으로 올리면 화면은 뜨지만 투표가 저장되지 않을 수 있으니
+  아래 A 또는 B 방법으로 배포해 주세요.
+
+━━━━━━━━━━━━━━━━━━
+A. GitHub 연결 (권장)
+1. GitHub에 새 저장소를 만들고 이 폴더 안의 파일을 그대로 올림 (폴더 구조 유지)
+2. Netlify → Add new project → Import an existing project → GitHub → 저장소 선택
+3. Build command: 비워두기 / Publish directory: .  → Deploy
+4. 이후 GitHub에 파일을 수정해 올리면 자동 재배포
+
+B. Netlify CLI (터미널)
+1. Node.js LTS 설치: https://nodejs.org
+2. 터미널(Windows: PowerShell / Mac: 터미널)에서 이 폴더로 이동
+   cd 폴더경로
+3. 라이브러리 설치
+   npm install
+4. 로그인 후 배포 (처음엔 'Create & configure a new project' 선택)
+   npx netlify-cli login
+   npx netlify-cli deploy --prod
+
+━━━━━━━━━━━━━━━━━━
+[배포 후 확인]
+1. 휴대폰으로 사이트 접속 → 품종 선택 → 투표 → 결과 화면이 나오면 정상
+2. https://사이트주소/api/results 를 열어 숫자가 올라갔는지 확인
+3. https://사이트주소/result 현황판 확인
+
+[행사 전 테스트 투표 지우기]
+1. Netlify → Project configuration → Environment variables → Add
+   Key: RESET_KEY / Value: 아무 비밀번호 (예: grape1127)
+2. Deploys → Trigger deploy → Deploy project (환경 변수 반영)
+3. 터미널에서 실행 (사이트주소·비밀번호 바꿔서)
+   curl -X POST "https://사이트주소/api/reset?key=grape1127"
+   → {"ok":true,"deleted":숫자} 가 나오면 초기화 완료
+4. 행사 기간에는 RESET_KEY를 삭제해 두는 것을 권장
+
+[참고]
+- 1인 1회: 같은 휴대폰(브라우저)에서는 한 번만 투표됩니다. 브라우저 기록을 지우면 다시 투표할 수 있습니다.
+- 이름·연락처 등 개인정보는 받지 않습니다.
+- 사이트 주소가 정해지면 알려 주세요. 선호도 조사판 · A3에 QR을 넣어 드립니다.
+- 카카오톡 공유 미리보기 이미지가 안 뜨면 index.html의 og:image 값을
+  https://사이트주소/assets/og.png 처럼 전체 주소로 바꿔 주세요.
