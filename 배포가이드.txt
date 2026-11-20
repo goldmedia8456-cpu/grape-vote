@@ -41,13 +41,14 @@ B. Netlify CLI (터미널)
 3. https://사이트주소/result 현황판 확인
 
 [행사 전 테스트 투표 지우기]
-1. Netlify → Project configuration → Environment variables → Add
-   Key: RESET_KEY / Value: 아무 비밀번호 (예: grape1127)
-2. Deploys → Trigger deploy → Deploy project (환경 변수 반영)
-3. 터미널에서 실행 (사이트주소·비밀번호 바꿔서)
-   curl -X POST "https://사이트주소/api/reset?key=grape1127"
+1. Netlify → kgrape-vote 프로젝트 → Project configuration → Environment variables → Add a variable
+   Key: RESET_KEY / Value: 아무 비밀번호 (예: grape1127) → Create variable
+2. Deploys → Trigger deploy → Deploy project (1~2분 대기)
+3. 브라우저 주소창에 입력 (비밀번호 부분만 바꿔서)
+   https://kgrape-vote.netlify.app/api/reset?key=grape1127
    → {"ok":true,"deleted":숫자} 가 나오면 초기화 완료
-4. 행사 기간에는 RESET_KEY를 삭제해 두는 것을 권장
+4. 휴대폰에서 투표 화면 맨 아래 「← 처음 화면으로」를 누르면 다시 투표할 수 있음
+5. 행사 시작 전 RESET_KEY 변수는 삭제 → 다시 Trigger deploy (다른 사람이 지우지 못하게)
 
 [참고]
 - 1인 1회: 같은 휴대폰(브라우저)에서는 한 번만 투표됩니다. 브라우저 기록을 지우면 다시 투표할 수 있습니다.

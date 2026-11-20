@@ -85,6 +85,7 @@ footer{margin-top:28px}
 .toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);background:var(--ink);color:#fff;font-size:14px;padding:11px 18px;border-radius:99px;opacity:0;pointer-events:none;transition:opacity .2s;white-space:nowrap}
 .toast.on{opacity:1}
 [hidden]{display:none!important}
+.back{display:block;margin:18px auto 0;height:48px;padding:0 26px;border-radius:99px;border:1.5px solid var(--line);background:#fff;color:var(--ink);font-size:16px;cursor:pointer}
 .spin{width:22px;height:22px;border:3px solid rgba(255,255,255,.45);border-top-color:#fff;border-radius:50%;animation:sp 0.8s linear infinite}
 @keyframes sp{to{transform:rotate(360deg)}}
 /* 현황판 (?view=result) */
@@ -149,6 +150,7 @@ body.board .bars{gap:18px;margin-top:20px}
       <div class="ev d"><span class="pill">EVENT 1</span>포도인간을 찾아라!<span class="t">1시간에 1번씩 운영</span></div>
       <div class="ev g d"><span class="pill">EVENT 2</span>포도알 플링코<span class="t">상시 운영</span></div>
     </div>
+    <button class="back d" id="back" type="button">← 처음 화면으로</button>
   </main>
 </div>
 <footer>
@@ -254,7 +256,7 @@ $('go').onclick = function(){
 function board(){
   document.body.classList.add('board');
   $('voteView').hidden = true; $('doneView').hidden = false;
-  $('snsCard').hidden = true; $('evCard').hidden = true; $('pick').parentNode.hidden = true;
+  $('snsCard').hidden = true; $('evCard').hidden = true; $('pick').parentNode.hidden = true; $('back').hidden = true;
   $('ttl').innerHTML = '품종별 선호도 <span class="y">실시간 현황</span>';
   $('lead').textContent = '휴대폰으로 QR을 찍고 가장 맛있었던 포도에 투표해 주세요!';
   function tick(){ API.call('getCounts').then(function(r){ bars(r, null); }).catch(function(){}); }
@@ -262,6 +264,7 @@ function board(){
 }
 
 render();
+$('back').onclick = function(){ try{ localStorage.removeItem(KEY); }catch(e){} location.href = location.pathname.replace(/\/result\/?$/, '/'); };
 function start(q){
   if(q && q.view === 'result') return board();
   var mine = ls(KEY);

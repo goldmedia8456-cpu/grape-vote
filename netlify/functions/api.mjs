@@ -56,7 +56,7 @@ export async function handle(req, store, env = {}) {
     return new Response(csv, { headers: { "content-type": "text/csv; charset=utf-8", "content-disposition": 'attachment; filename="grape_vote_2026.csv"', "cache-control": "no-store" } });
   }
 
-  if (path === "/api/reset" && req.method === "POST") {
+  if (path === "/api/reset" && (req.method === "POST" || req.method === "GET")) {
     if (!env.RESET_KEY || url.searchParams.get("key") !== env.RESET_KEY) return json({ error: "forbidden" }, 403);
     const { blobs } = await store.list();
     for (const b of blobs) await store.delete(b.key);
